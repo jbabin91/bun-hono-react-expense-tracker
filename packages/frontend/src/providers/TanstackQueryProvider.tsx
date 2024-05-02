@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 
 import { TanstackQueryDevtools } from '@/components/utils';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export function TanstackQueryProvider({
   children,

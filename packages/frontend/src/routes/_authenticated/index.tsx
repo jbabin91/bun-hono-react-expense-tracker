@@ -10,7 +10,7 @@ import {
 } from '@/components/ui';
 import { api } from '@/libs/api';
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/_authenticated/')({
   component: Index,
 });
 

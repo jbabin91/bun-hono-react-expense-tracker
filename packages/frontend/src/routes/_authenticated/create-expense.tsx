@@ -15,7 +15,7 @@ import {
 } from '@/components/ui';
 import { api } from '@/libs/api';
 
-export const Route = createFileRoute('/create-expense')({
+export const Route = createFileRoute('/_authenticated/create-expense')({
   component: CreateExpense,
 });
 

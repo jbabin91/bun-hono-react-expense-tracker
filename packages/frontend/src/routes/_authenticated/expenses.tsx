@@ -13,7 +13,7 @@ import {
 } from '@/components/ui';
 import { api } from '@/libs/api';
 
-export const Route = createFileRoute('/expenses')({
+export const Route = createFileRoute('/_authenticated/expenses')({
   component: Expenses,
 });
 

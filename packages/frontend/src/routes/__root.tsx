@@ -1,16 +1,25 @@
-import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
+import { type QueryClient } from '@tanstack/react-query';
+import {
+  createRootRouteWithContext,
+  Link,
+  Outlet,
+} from '@tanstack/react-router';
 import { Suspense } from 'react';
 
 import { ModeToggle } from '@/components/ModeToggle';
 import { TanstackRouterDevtools } from '@/components/utils';
 
-export const Route = createRootRoute({
+type RouterContext = {
+  queryClient: QueryClient;
+};
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootLayout,
 });
 
 function Navbar() {
   return (
-    <div className="flex justify-between border-b p-2">
+    <div className="m-auto flex max-w-6xl justify-between p-2">
       <div className="flex gap-2 p-2">
         <Link className="[&.active]:font-bold" to="/">
           Home
@@ -22,7 +31,10 @@ function Navbar() {
           Expenses
         </Link>
         <Link className="[&.active]:font-bold" to="/create-expense">
-          Create Expense
+          Create
+        </Link>
+        <Link className="[&.active]:font-bold" to="/profile">
+          Profile
         </Link>
       </div>
       <ModeToggle />
@@ -34,7 +46,10 @@ function RootLayout() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <hr />
+      <main className="m-auto max-w-6xl p-2">
+        <Outlet />
+      </main>
       <Suspense>
         <TanstackRouterDevtools />
       </Suspense>
