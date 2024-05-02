@@ -35,4 +35,10 @@ COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
+
+# Healthcheck
+RUN apt-get update -qq
+RUN apt-get --yes install curl
+HEALTHCHECK --interval=5s --timeout=5s --start-period=5s CMD curl --silent --fail http://localhost:3000 || exit 1
+
 CMD ["bun", "start"]
