@@ -13,7 +13,8 @@
     "ws:build": "bun --filter '*' build",
     "ws:dev": "bun --filter '*' dev",
     "ws:lint": "bun --filter '*' lint",
-    "ws:lint:fix": "bun --filter '*' lint:fix"
+    "ws:lint:fix": "bun --filter '*' lint:fix",
+    "ws:typecheck": "bun --filter '*' typecheck"
   },
   "devDependencies": {
     "@types/eslint": "^8.56.10",

@@ -1,6 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
+import {
+  Skeleton,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui';
 import { api } from '@/libs/api';
 
 export const Route = createFileRoute('/expenses')({
@@ -8,6 +18,7 @@ export const Route = createFileRoute('/expenses')({
 });
 
 async function getAllExpenses() {
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
   const response = await api.expenses.$get();
   if (!response.ok) throw new Error('Server error');
   const data = await response.json();
@@ -23,8 +34,42 @@ function Expenses() {
   if (error) return 'An error has occurred: ' + error.message;
 
   return (
-    <div className="p-2">
-      <pre>{isPending ? '...' : JSON.stringify(data, null, 2)}</pre>
+    <div className="mx-auto max-w-3xl p-2">
+      <Table>
+        <TableCaption>A list of all your expenses.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">Id</TableHead>
+            <TableHead>Title</TableHead>
+            <TableHead>Amount</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {isPending
+            ? Array.from({ length: 3 })
+                .fill(0)
+                .map((_, i) => (
+                  <TableRow key={i}>
+                    <TableCell>
+                      <Skeleton className="h-4" />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton className="h-4" />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton className="h-4" />
+                    </TableCell>
+                  </TableRow>
+                ))
+            : data?.expenses.map((expense) => (
+                <TableRow key={expense.id}>
+                  <TableCell className="font-medium">{expense.id}</TableCell>
+                  <TableCell>{expense.title}</TableCell>
+                  <TableCell>{expense.amount}</TableCell>
+                </TableRow>
+              ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }
