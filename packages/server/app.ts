@@ -8,6 +8,10 @@ const app = new Hono();
 
 app.use(logger());
 
+app.get('/api/healthcheck', (c) => {
+  return c.text('OK');
+});
+
 app.route('/api/expenses', expensesRoute);
 
 app.get('*', serveStatic({ root: '../frontend/dist' }));
