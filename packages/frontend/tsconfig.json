@@ -23,7 +23,8 @@
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@server/*": ["../server/*"]
     }
   },
   "include": ["src", "vite.config.ts", "tailwind.config.ts"],
