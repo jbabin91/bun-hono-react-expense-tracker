@@ -10,12 +10,19 @@
     "lint:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint",
     "start": "bun index.ts"
   },
+  "eslintConfig": {
+    "extends": [
+      "@repo/eslint-config/base"
+    ],
+    "root": true
+  },
   "dependencies": {
     "@hono/zod-validator": "^0.2.1",
     "hono": "^4.2.9",
     "zod": "^3.23.5"
   },
   "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
     "@types/bun": "latest"
   },
   "peerDependencies": {

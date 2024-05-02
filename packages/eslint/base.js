@@ -2,7 +2,7 @@
 module.exports = {
   env: { browser: true, es2022: true, node: true },
   extends: ['eslint:recommended', 'plugin:unicorn/recommended', 'prettier'],
-  ignorePatterns: ['node_modules', 'dist', '*.gen.ts'],
+  ignorePatterns: ['node_modules', 'dist', '.turbo', '*.gen.ts'],
   overrides: [
     {
       extends: [
@@ -12,9 +12,7 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        ecmaVersion: 'latest',
         project: true,
-        sourceType: 'module',
       },
       rules: {
         '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
@@ -44,8 +42,8 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:react/jsx-runtime',
         'plugin:react-hooks/recommended',
-        'plugin:jsx-a11y/recommended',
         'plugin:tailwindcss/recommended',
+        'plugin:jsx-a11y/recommended',
       ],
       files: ['*.jsx', '*.tsx'],
       rules: {
@@ -63,7 +61,9 @@ module.exports = {
         'react/prop-types': 'off',
         'tailwindcss/no-custom-classname': 'off',
       },
-      settings: { react: { version: 'detect' } },
+      settings: {
+        react: { version: 'detect' },
+      },
     },
   ],
   plugins: ['import', 'simple-import-sort', 'sort-keys-fix'],
@@ -71,7 +71,7 @@ module.exports = {
   rules: {
     'import/first': 'error',
     'import/newline-after-import': 'error',
-    'import/no-duplicates': ['error', { 'prefer-inline': true }],
+    'import/no-duplicates': 'error',
     'simple-import-sort/exports': 'error',
     'simple-import-sort/imports': 'error',
     'sort-keys-fix/sort-keys-fix': 'error',
@@ -86,6 +86,7 @@ module.exports = {
       },
     ],
     'unicorn/no-null': 'off',
+    'unicorn/prefer-top-level-await': 'off',
     'unicorn/prevent-abbreviations': 'off',
   },
 };

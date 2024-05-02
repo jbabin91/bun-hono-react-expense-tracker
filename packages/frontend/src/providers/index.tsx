@@ -1,5 +1,13 @@
 import { TanstackQueryProvider } from '@/providers/TanstackQueryProvider';
+import { TanstackRouterProvider } from '@/providers/TanstackRouterProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
-export function Providers({ children }: { children: React.ReactNode }) {
-  return <TanstackQueryProvider>{children}</TanstackQueryProvider>;
+export function Providers() {
+  return (
+    <ThemeProvider>
+      <TanstackQueryProvider>
+        <TanstackRouterProvider />
+      </TanstackQueryProvider>
+    </ThemeProvider>
+  );
 }

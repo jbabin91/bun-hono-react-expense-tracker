@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Suspense } from 'react';
 
-import { TanstackQueryDevtools } from '@/components/utils/TanstackQueryDevtools';
+import { TanstackQueryDevtools } from '@/components/utils';
 
 const queryClient = new QueryClient();
 

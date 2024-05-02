@@ -1,16 +1,14 @@
-import './index.css';
+import '@/styles/global.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+import { TailwindIndicator } from '@/components/utils';
 import { Providers } from '@/providers/index.tsx';
 
-import App from './App.tsx';
-
-ReactDOM.createRoot(document.querySelector('#root')!).render(
+ReactDOM.createRoot(document.querySelector('#app')!).render(
   <React.StrictMode>
-    <Providers>
-      <App />
-    </Providers>
+    <Providers />
+    <TailwindIndicator />
   </React.StrictMode>,
 );
