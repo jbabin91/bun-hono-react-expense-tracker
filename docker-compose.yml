@@ -1,0 +1,14 @@
+services:
+  app:
+    container_name: bun-hono
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    networks:
+      - bun_hono_network
+
+networks:
+  bun_hono_network:

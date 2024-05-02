@@ -8,7 +8,9 @@
   "scripts": {
     "format": "prettier -uw --cache .",
     "format:check": "prettier -uc --cache .",
+    "start": "bun --filter 'server' start",
     "ui:add": "cd packages/frontend && bunx --bun shadcn-ui@latest add",
+    "ws:build": "bun --filter '*' build",
     "ws:dev": "bun --filter '*' dev",
     "ws:lint": "bun --filter '*' lint",
     "ws:lint:fix": "bun --filter '*' lint:fix"
