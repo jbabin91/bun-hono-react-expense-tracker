@@ -14,8 +14,15 @@ const apiRoutes = app
   .route('/expenses', expensesRoute)
   .route('/', authRoute);
 
-app.get('*', serveStatic({ root: '../frontend/dist' }));
-app.get('*', serveStatic({ path: '../frontend/dist/index.html' }));
+app.use(
+  '*',
+  serveStatic({
+    rewriteRequestPath: (path) =>
+      path.replace(/^\/about|expenses|profile|create-expense/, '/'),
+    root: '../frontend/dist',
+  }),
+);
+app.use('*', serveStatic({ path: '../frontend/dist/index.html' }));
 
 export default app;
 export type ApiRoutes = typeof apiRoutes;
