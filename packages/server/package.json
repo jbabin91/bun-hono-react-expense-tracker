@@ -4,6 +4,10 @@
   "module": "server/index.ts",
   "scripts": {
     "dev": "bun --watch index.ts",
+    "drizzle:generate": "drizzle-kit generate:pg --config ./drizzle.config.ts",
+    "drizzle:migrate": "bun migrate.ts",
+    "drizzle:push": "drizzle-kit push:pg --config ./drizzle.config.ts",
+    "drizzle:studio": "drizzle-kit studio --config ./drizzle.config.ts",
     "format": "prettier -uw --cache .",
     "format:check": "prettier -uc --cache .",
     "lint": "eslint . --max-warnings 0 --cache --cache-location node_modules/.cache/eslint",
@@ -19,11 +23,14 @@
   "dependencies": {
     "@hono/zod-validator": "^0.2.1",
     "@kinde-oss/kinde-typescript-sdk": "^2.9.0",
+    "drizzle-orm": "^0.30.10",
     "hono": "^4.2.9",
+    "postgres": "^3.4.4",
     "zod": "^3.23.5"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "drizzle-kit": "^0.20.17"
   }
 }

@@ -20,7 +20,7 @@ export const Route = createFileRoute('/_authenticated/create-expense')({
 });
 
 const formSchema = z.object({
-  amount: z.number().int(),
+  amount: z.string(),
   title: z.string().min(3),
 });
 
@@ -28,7 +28,7 @@ function CreateExpense() {
   const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
-      amount: 0,
+      amount: '',
       title: '',
     },
     resolver: zodResolver(formSchema),
@@ -42,9 +42,9 @@ function CreateExpense() {
 
   return (
     <div className="mx-auto max-w-lg p-2">
-      <h2>Create Expense</h2>
       <Form {...form}>
         <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
+          <h2 className="text-2xl">Create Expense</h2>
           <FormField
             control={form.control}
             name="title"
@@ -63,13 +63,9 @@ function CreateExpense() {
             name="amount"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>Amount</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    {...field}
-                    onChange={(e) => field.onChange(Number(e.target.value))}
-                  />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
