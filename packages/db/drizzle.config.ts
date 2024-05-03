@@ -6,5 +6,5 @@ export default defineConfig({
   },
   driver: 'pg',
   out: './drizzle',
-  schema: './db/schema',
+  schema: './src/schema',
 });

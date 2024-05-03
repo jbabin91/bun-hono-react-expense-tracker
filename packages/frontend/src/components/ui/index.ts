@@ -1,4 +1,6 @@
+export * from './avatar';
 export * from './button';
+export * from './calendar';
 export * from './card';
 export * from './dropdown-menu';
 export * from './form';

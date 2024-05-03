@@ -1,0 +1,36 @@
+{
+  "name": "@repo/db",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf node_modules",
+    "drizzle:generate": "drizzle-kit generate:pg --config ./drizzle.config.ts",
+    "drizzle:migrate": "bun migrate.ts",
+    "drizzle:push": "drizzle-kit push:pg --config ./drizzle.config.ts",
+    "drizzle:studio": "drizzle-kit studio --config ./drizzle.config.ts",
+    "lint": "eslint . --max-warnings 0 --cache --cache-location node_modules/.cache/eslint",
+    "lint:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@repo/eslint-config/base"
+    ],
+    "root": true
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.30.10",
+    "drizzle-zod": "^0.5.1",
+    "postgres": "^3.4.4",
+    "zod": "^3.23.5"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "drizzle-kit": "^0.20.17"
+  }
+}

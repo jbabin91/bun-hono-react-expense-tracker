@@ -33,42 +33,45 @@ function Expenses() {
   if (error) return 'An error has occurred: ' + error.message;
 
   return (
-    <div className="mx-auto max-w-3xl p-2">
-      <Table>
-        <TableCaption>A list of all your expenses.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[100px]">Id</TableHead>
-            <TableHead>Title</TableHead>
-            <TableHead>Amount</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {isPending
-            ? Array.from({ length: 3 })
-                .fill(0)
-                .map((_, i) => (
-                  <TableRow key={i}>
-                    <TableCell>
-                      <Skeleton className="h-4" />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton className="h-4" />
-                    </TableCell>
-                    <TableCell>
-                      <Skeleton className="h-4" />
-                    </TableCell>
-                  </TableRow>
-                ))
-            : data?.expenses.map((expense) => (
-                <TableRow key={expense.id}>
-                  <TableCell className="font-medium">{expense.id}</TableCell>
-                  <TableCell>{expense.title}</TableCell>
-                  <TableCell>{expense.amount}</TableCell>
+    <Table className="mx-auto">
+      <TableCaption>A list of all your expenses.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">Id</TableHead>
+          <TableHead>Title</TableHead>
+          <TableHead>Amount</TableHead>
+          <TableHead>Date</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {isPending
+          ? Array.from({ length: 3 })
+              .fill(0)
+              .map((_, i) => (
+                <TableRow key={i}>
+                  <TableCell>
+                    <Skeleton className="h-4" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className="h-4" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className="h-4" />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton className="h-4" />
+                  </TableCell>
                 </TableRow>
-              ))}
-        </TableBody>
-      </Table>
-    </div>
+              ))
+          : data?.expenses.map((expense) => (
+              <TableRow key={expense.id}>
+                <TableCell className="font-medium">{expense.id}</TableCell>
+                <TableCell>{expense.title}</TableCell>
+                <TableCell>{expense.amount}</TableCell>
+                <TableCell>{expense.date}</TableCell>
+              </TableRow>
+            ))}
+      </TableBody>
+    </Table>
   );
 }

@@ -19,25 +19,27 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
 function Navbar() {
   return (
-    <div className="m-auto flex max-w-6xl justify-between p-2">
-      <div className="flex gap-2 p-2">
-        <Link className="[&.active]:font-bold" to="/">
-          Home
-        </Link>
-        <Link className="[&.active]:font-bold" to="/about">
-          About
-        </Link>
-        <Link className="[&.active]:font-bold" to="/expenses">
-          Expenses
-        </Link>
-        <Link className="[&.active]:font-bold" to="/create-expense">
-          Create
-        </Link>
-        <Link className="[&.active]:font-bold" to="/profile">
-          Profile
-        </Link>
+    <div className="m-auto flex max-w-4xl items-baseline justify-between p-2">
+      <Link to="/">
+        <h1 className="text-2xl font-bold">Expense Tracker</h1>
+      </Link>
+      <div className="flex items-baseline gap-4">
+        <div className="flex gap-2">
+          <Link className="[&.active]:font-bold" to="/about">
+            About
+          </Link>
+          <Link className="[&.active]:font-bold" to="/expenses">
+            Expenses
+          </Link>
+          <Link className="[&.active]:font-bold" to="/create-expense">
+            Create
+          </Link>
+          <Link className="[&.active]:font-bold" to="/profile">
+            Profile
+          </Link>
+        </div>
+        <ModeToggle />
       </div>
-      <ModeToggle />
     </div>
   );
 }
@@ -47,7 +49,7 @@ function RootLayout() {
     <>
       <Navbar />
       <hr />
-      <main className="m-auto max-w-6xl p-2">
+      <main className="m-auto max-w-4xl p-4">
         <Outlet />
       </main>
       <Suspense>

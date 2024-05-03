@@ -28,9 +28,14 @@ function Login() {
   return (
     <div className="mx-auto flex max-w-lg flex-col items-center gap-2 p-2">
       <h1 className="text-2xl">You have to login!</h1>
-      <Button asChild variant="link">
-        <a href="/api/login">Login!</a>
-      </Button>
+      <div className="flex gap-4">
+        <Button asChild>
+          <a href="/api/login">Login!</a>
+        </Button>
+        <Button asChild>
+          <a href="/api/register">Register!</a>
+        </Button>
+      </div>
     </div>
   );
 }

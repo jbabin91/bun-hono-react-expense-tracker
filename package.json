@@ -6,10 +6,10 @@
     "packages/*"
   ],
   "scripts": {
-    "db:generate": "bun --filter 'server' drizzle:generate",
-    "db:migrate": "bun --filter 'server' drizzle:migrate",
-    "db:push": "bun --filter 'server' drizzle:push",
-    "db:studio": "bun --filter 'server' drizzle:studio",
+    "db:generate": "bun --filter '@repo/db' drizzle:generate",
+    "db:migrate": "bun --filter '@repo/db' drizzle:migrate",
+    "db:push": "bun --filter '@repo/db' drizzle:push",
+    "db:studio": "bun --filter '@repo/db' drizzle:studio",
     "format": "prettier -uw --cache .",
     "format:check": "prettier -uc --cache .",
     "start": "bun --filter 'server' start",

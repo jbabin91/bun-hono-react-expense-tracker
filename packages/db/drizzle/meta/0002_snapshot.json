@@ -1,6 +1,6 @@
 {
-  "id": "efe49216-08ab-41b4-ad15-f50b61cc80cc",
-  "prevId": "069ade08-4879-4d73-92c0-97a0766d9d5f",
+  "id": "9d9ed851-4260-45ba-a832-64aa2c3d172f",
+  "prevId": "efe49216-08ab-41b4-ad15-f50b61cc80cc",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -32,6 +32,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "date": {
+          "name": "date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -43,9 +49,7 @@
       "indexes": {
         "name_idx": {
           "name": "name_idx",
-          "columns": [
-            "user_id"
-          ],
+          "columns": ["user_id"],
           "isUnique": false
         }
       },

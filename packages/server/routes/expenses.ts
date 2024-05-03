@@ -1,42 +1,41 @@
-/* eslint-disable sort-keys-fix/sort-keys-fix */
 import { zValidator } from '@hono/zod-validator';
+import {
+  createExpenseSchema,
+  expenseTable,
+  insertExpensesSchema,
+} from '@repo/db';
 import { and, desc, eq, sum } from 'drizzle-orm';
 import { Hono } from 'hono';
-import { z } from 'zod';
 
-import { db } from '../db';
-import { expenseTable } from '../db/schema';
+import { db } from '../libs/db';
 import { getUser } from '../libs/kinde';
-
-const expenseSchema = z.object({
-  id: z.number().int().positive().min(1),
-  title: z.string().min(3).max(100),
-  amount: z.string(),
-});
-
-const createPostSchema = expenseSchema.omit({ id: true });
 
 export const expensesRoute = new Hono()
   .get('/', getUser, async (c) => {
     const user = c.var.user;
 
     const expenses = await db.query.expenseTable.findMany({
-      where: eq(expenseTable.userId, user.id),
       limit: 100,
       orderBy: [desc(expenseTable.createdAt)],
+      where: eq(expenseTable.userId, user.id),
     });
 
     return c.json({
       expenses,
     });
   })
-  .post('/', getUser, zValidator('json', createPostSchema), async (c) => {
+  .post('/', getUser, zValidator('json', createExpenseSchema), async (c) => {
     const expense = c.req.valid('json');
     const user = c.var.user;
 
+    const validatedExpense = insertExpensesSchema.parse({
+      ...expense,
+      userId: user.id,
+    });
+
     const result = await db
       .insert(expenseTable)
-      .values({ ...expense, userId: user.id })
+      .values(validatedExpense)
       .returning();
 
     return c.json(result, 201);
