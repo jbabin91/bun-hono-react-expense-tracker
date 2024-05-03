@@ -1,7 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createExpenseSchema } from '@repo/db';
+import { useQueryClient } from '@tanstack/react-query';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { type z } from 'zod';
 
 import {
@@ -15,7 +17,11 @@ import {
   FormMessage,
   Input,
 } from '@/components/ui';
-import { api } from '@/libs/api';
+import {
+  createExpense,
+  getAllExpensesQueryOptions,
+  loadingCreateExpenseQueryOptions,
+} from '@/libs/api';
 
 export const Route = createFileRoute('/_authenticated/create-expense')({
   component: CreateExpense,
@@ -23,6 +29,7 @@ export const Route = createFileRoute('/_authenticated/create-expense')({
 
 function CreateExpense() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof createExpenseSchema>>({
     defaultValues: {
       amount: '0',
@@ -33,10 +40,30 @@ function CreateExpense() {
   });
 
   async function onSubmit(values: z.infer<typeof createExpenseSchema>) {
-    console.log(values);
-    const response = await api.expenses.$post({ json: values });
-    if (!response.ok) throw new Error('Failed to create expense');
+    const existingExpenses = await queryClient.ensureQueryData(
+      getAllExpensesQueryOptions,
+    );
     navigate({ to: '/expenses' });
+    // loading state
+    queryClient.setQueryData(loadingCreateExpenseQueryOptions.queryKey, {
+      expense: values,
+    });
+    try {
+      const newExpense = await createExpense({ values });
+      queryClient.setQueryData(getAllExpensesQueryOptions.queryKey, {
+        ...existingExpenses,
+        expenses: [newExpense, ...existingExpenses.expenses],
+      });
+      toast('Expense Created', {
+        description: `Successfully created new expense: ${newExpense.id}`,
+      });
+    } catch {
+      toast('Error', {
+        description: 'Failed to create new expense',
+      });
+    } finally {
+      queryClient.setQueryData(loadingCreateExpenseQueryOptions.queryKey, {});
+    }
   }
 
   return (

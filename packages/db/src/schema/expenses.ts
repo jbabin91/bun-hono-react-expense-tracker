@@ -36,10 +36,18 @@ export const insertExpensesSchema = createInsertSchema(expenseTable, {
   }),
 });
 // Schema for selecting an expense - can be used to validate API requests
-export const selectExpensesSchema = createSelectSchema(expenseTable);
+export const selectExpensesSchema = createSelectSchema(expenseTable).omit({
+  createdAt: true,
+});
 
 export const createExpenseSchema = insertExpensesSchema.omit({
   id: true,
   userId: true,
   createdAt: true,
 });
+
+export const updateExpenseSchema = createExpenseSchema.partial();
+
+export type CreateExpense = z.infer<typeof createExpenseSchema>;
+export type UpdateExpense = z.infer<typeof updateExpenseSchema>;
+export type Expense = z.infer<typeof selectExpensesSchema>;

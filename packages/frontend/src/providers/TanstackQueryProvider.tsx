@@ -3,7 +3,13 @@ import { Suspense } from 'react';
 
 import { TanstackQueryDevtools } from '@/components/utils';
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
 
 export function TanstackQueryProvider({
   children,
